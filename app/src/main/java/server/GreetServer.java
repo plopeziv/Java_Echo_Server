@@ -19,14 +19,18 @@ public class GreetServer implements Runnable {
 
         String echoMessage = in.readLine();
 
-        out.println("(Echo) " + echoMessage);
-        System.out.println("(Echo) " + echoMessage);
+        while (echoMessage != "close") {
+            out.println("(Echo) " + echoMessage);
+            System.out.println("(Echo) " + echoMessage);
+
+            echoMessage = in.readLine();
+        }
     }
 
     public void run() {
         try {
-            System.out.println("Starting Server on port 6666");
-            this.start(6666);
+            System.out.println("Starting Server on port 5000");
+            this.start(5000);
         } catch (IOException e) {
             e.printStackTrace();
         }
