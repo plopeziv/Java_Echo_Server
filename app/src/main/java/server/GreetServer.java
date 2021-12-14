@@ -19,7 +19,7 @@ public class GreetServer implements Runnable {
 
         String echoMessage = in.readLine();
 
-        while (echoMessage != "close") {
+        while (!echoMessage.equals("close")) {
             out.println("(Echo) " + echoMessage);
             System.out.println("(Echo) " + echoMessage);
 
