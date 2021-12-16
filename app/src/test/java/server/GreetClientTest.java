@@ -7,28 +7,32 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class GreetClientTest {
     @Test
-    public void givenGreetingClient_whenServerRespondsWhenStarted_thenCorrect() throws IOException {
+    public void givenGreetingClient_whenServerResponds_thenStringIsEchoed() throws IOException {
         GreetClient client = new GreetClient();
-        (new Thread(new GreetServer())).start();
-        client.startConnection("127.0.0.1", 6666);
+        GreetServer server = new GreetServer(7000);
+        (new Thread(server)).start();
+        client.startConnection("127.0.0.1", 7000);
         String response = client.sendMessage("hello server");
         assertEquals("(Echo) hello server", response);
 
         client.stopConnection();
+        server.stop();
     }
 
 //    @Test
-//    public void givenGreetingClient_whenServerRespondsWhenUnrecognizedGreeting_thenRespond() throws IOException {
+//    public void givenServerIsRunning_whenMessageIsClose_thenServerShouldEnd() throws IOException {
 //        GreetClient client = new GreetClient();
-//        (new Thread(new GreetServer())).start();
-//        client.startConnection("127.0.0.1", 6666);
-//        String response = client.sendMessage("This is not the message you are looking for");
-//        assertEquals("unrecognised greeting", response);
+//        GreetServer serverTwo = new GreetServer(7000);
+//        (new Thread(serverTwo)).start();
+//        client.startConnection("127.0.0.1", 7000);
+//        String responseTwo = client.sendMessage("trip");
+//        assertEquals("(Echo) trip", responseTwo);
 //
 //        client.stopConnection();
+//        serverTwo.stop();
 //    }
 }

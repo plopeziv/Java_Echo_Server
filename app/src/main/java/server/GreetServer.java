@@ -10,6 +10,11 @@ public class GreetServer implements Runnable {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
+    int portNumber;
+
+    public GreetServer(int port){
+        this.portNumber = port;
+    }
 
     public void start(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -19,7 +24,7 @@ public class GreetServer implements Runnable {
 
         String echoMessage = in.readLine();
 
-        while (!echoMessage.equals("close")) {
+        while (echoMessage != null && !echoMessage.equals("close")) {
             out.println("(Echo) " + echoMessage);
             System.out.println("(Echo) " + echoMessage);
 
@@ -29,8 +34,8 @@ public class GreetServer implements Runnable {
 
     public void run() {
         try {
-            System.out.println("Starting Server on port 5000");
-            this.start(5000);
+            System.out.println("Starting Server on port " + this.portNumber);
+            this.start(this.portNumber);
         } catch (IOException e) {
             e.printStackTrace();
         }

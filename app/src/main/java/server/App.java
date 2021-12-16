@@ -8,7 +8,7 @@ import java.io.*;
 public class App {
 
     public static void main(String[] args) throws IOException {
-        GreetServer server = new GreetServer();
+        GreetServer server = new GreetServer(5000);
         server.run();
     }
 }
